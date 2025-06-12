@@ -5,73 +5,110 @@
     <title>Miguel Monsanto - CV</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        :root {
+            --bg-main: #f2f3f7;
+            --bg-card: rgba(255,255,255,0.12);
+            --bg-sidebar: linear-gradient(135deg, #e0e1e6 0%, #c7c8cc 100%);
+            --bg-main-content: #f7f7fa;
+            --text-main: #232323;
+            --text-link: #444;
+            --text-link-hover: #1976d2;
+            --highlight-bg: #e3f0fa;
+            --highlight-color: #1976d2;
+            --sidebar-border: #d1d1d6;
+            --main-border: #e0e0e0;
+            --shadow: 0 4px 32px #0002;
+            --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --bg-image: url('https://i.imgur.com/x4IiBmb.jpeg');
+        }
         body {
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            background: #f2f3f7;
-            color: #232323;
+            background: var(--bg-main);
+            color: var(--text-main);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            transition: background-color 0.3s;
         }
-        /* Bubbly background effect */
-        .bubbles-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 0;
-            overflow: hidden;
+        #bg-split-overlay {
             pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: var(--bg-image);
+            background-size: cover;
+            background-position: left center;
+            background-repeat: no-repeat;
+            transition: clip-path 0.7s cubic-bezier(.4,0,.2,1), background-position 0.7s cubic-bezier(.4,0,.2,1);
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
         }
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.18;
-            background: radial-gradient(circle at 30% 30%, #bdbdbd 0%, #ededf0 100%);
-            animation: bubbleMove 18s linear infinite;
-        }
-        @keyframes bubbleMove {
-            0% {
-                transform: translateY(100vh) scale(1);
-                opacity: 0.18;
-            }
-            80% {
-                opacity: 0.22;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.15);
-                opacity: 0;
-            }
-        }
-        .bubble-inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            animation: bubbleFloat 6s ease-in-out infinite alternate;
-        }
-        @keyframes bubbleFloat {
-            0% { filter: blur(0px); transform: scale(1) translateX(0); }
-            50% { filter: blur(2px); transform: scale(1.07) translateX(12px); }
-            100% { filter: blur(0px); transform: scale(1) translateX(-10px); }
+        body.dark-mode #bg-split-overlay {
+            background: var(--bg-image);
+            background-size: cover;
+            background-position: left center;
+            background-repeat: no-repeat;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
         }
         .container {
             display: flex;
             max-width: 950px;
             margin: 48px auto;
-            background: #f7f7fa;
+            background: var(--bg-main-content);
             border-radius: 18px;
-            box-shadow: 0 4px 32px #0002;
+            box-shadow: var(--shadow);
             overflow: hidden;
-            border: 1.5px solid #e0e0e0;
+            border: 1.5px solid var(--main-border);
             position: relative;
             z-index: 1;
         }
+        .card {
+            width: 950px;
+            max-width: 100vw;
+            height: auto;
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.1s ease, background 0.3s;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            will-change: transform;
+        }
+        @media (max-width: 950px) {
+            .card {
+                width: 100vw;
+                max-width: 100vw;
+            }
+        }
         .sidebar {
-            background: linear-gradient(135deg, #e0e1e6 0%, #c7c8cc 100%);
-            color: #232323;
+            background: var(--bg-sidebar);
+            color: var(--text-main);
             width: 270px;
             padding: 36px 26px 36px 26px;
-            border-right: 1.5px solid #d1d1d6;
+            border-right: 1.5px solid var(--sidebar-border);
             display: flex;
             flex-direction: column;
             gap: 18px;
             box-shadow: 2px 0 8px #e0e0e0;
+            position: relative;
+            z-index: 3;
+        }
+        .sidebar-gradient-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.65;
+            border-radius: 18px 0 0 18px;
+            background: linear-gradient(120deg, #b3e0ff 0%, #e0f7fa 40%, #bdbdbd 80%, #b3e0ff 100%);
+            background-size: 300% 300%;
+            animation: sidebarGradientMove 7s ease-in-out infinite;
+        }
+        @keyframes sidebarGradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .sidebar h1 {
             font-size: 2.1em;
@@ -107,12 +144,18 @@
             color: #232323;
         }
         .sidebar a {
-            color: #232323;
-            text-decoration: underline;
-            transition: color 0.2s;
+            color: var(--text-link);
+            text-decoration: none;
+            border-bottom: 1px dotted #aaa;
+            transition: color 0.2s, border-bottom 0.2s, background 0.2s;
+            border-radius: 4px;
+            padding: 1px 3px;
         }
         .sidebar a:hover {
-            color: #4caf50;
+            color: var(--text-link-hover);
+            background: var(--highlight-bg);
+            border-bottom: 1px solid var(--text-link-hover);
+            text-decoration: none;
         }
         .main {
             flex: 1;
@@ -153,16 +196,30 @@
             height: 100%;
             background: linear-gradient(90deg, #bdbdbd 60%, #757575 100%);
         }
-        a {
-            color: #444;
+        a, .sidebar a {
+            color: var(--text-link);
             text-decoration: none;
             border-bottom: 1px dotted #aaa;
-            transition: color 0.2s, border-bottom 0.2s;
+            transition: color 0.2s, border-bottom 0.2s, background 0.2s;
+            border-radius: 4px;
+            padding: 1px 3px;
         }
-        a:hover {
-            color: #4caf50;
-            border-bottom: 1px solid #4caf50;
+        a:hover, .sidebar a:hover {
+            color: var(--text-link-hover);
+            background: var(--highlight-bg);
+            border-bottom: 1px solid var(--text-link-hover);
             text-decoration: none;
+        }
+        .main h2:hover, .main h3:hover, .sidebar h1:hover, .sidebar .subtitle:hover,
+        .sidebar section strong:hover, .sidebar li:hover, .main ul li:hover, .main p:hover {
+            background: var(--highlight-bg);
+            color: var(--highlight-color);
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .collapsible:hover {
+            background: var(--highlight-bg);
+            color: var(--highlight-color);
         }
         .collapsible {
             cursor: pointer;
@@ -180,10 +237,6 @@
             gap: 8px;
             transition: color 0.2s;
             border-radius: 6px;
-        }
-        .collapsible:hover {
-            color: #4caf50;
-            background: #e0e0e0;
         }
         .collapsible .arrow {
             font-size: 1.1em;
@@ -213,32 +266,50 @@
             background: none;
             color: #232323;
         }
-        .download-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px 0;
-            background: linear-gradient(90deg, #bdbdbd 60%, #ededf0 100%);
-            color: #232323;
-            font-weight: 700;
-            font-size: 1.08em;
+        .button {
+            position: relative;
+            overflow: hidden;
+            height: 3rem;
+            padding: 0 2rem;
+            border-radius: 1.5rem;
+            background: #3d3a4e;
+            background-size: 400%;
+            color: #fff;
             border: none;
-            border-radius: 8px;
-            margin-bottom: 10px;
             cursor: pointer;
-            box-shadow: 0 2px 8px #bdbdbd44;
-            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
         }
-        .download-btn:hover, .download-btn:focus {
-            background: linear-gradient(90deg, #ededf0 60%, #bdbdbd 100%);
-            color: #232323;
-            box-shadow: 0 4px 16px #bdbdbd66;
+        .button:hover::before {
+            transform: scaleX(1);
+        }
+        .button-content {
+            position: relative;
+            z-index: 1;
+        }
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            width: 100%;
+            height: inherit;
+            border-radius: inherit;
+            background: linear-gradient(
+                82.3deg,
+                rgba(150, 93, 233, 1) 10.8%,
+                rgba(99, 88, 238, 1) 94.3%
+            );
+            transition: all 0.475s;
         }
         @media (max-width: 900px) {
             .container { flex-direction: column; }
             .sidebar { width: 100%; border-right: none; border-bottom: 1.5px solid #d1d1d6; }
             .main { padding: 32px 12px; }
+            .sidebar-gradient-bg {
+                border-radius: 0;
+            }
         }
-        /* --- Enhanced mobile styles --- */
         @media (max-width: 600px) {
             html, body {
                 width: 100vw;
@@ -265,6 +336,9 @@
                 border-right: none;
                 border-bottom: 1.5px solid #d1d1d6;
                 gap: 14px;
+            }
+            .sidebar-gradient-bg {
+                border-radius: 0;
             }
             .sidebar h1 {
                 font-size: 1.5em;
@@ -324,12 +398,6 @@
             .skills-bar {
                 height: 8px;
             }
-            .bubbles-bg {
-                width: 100vw;
-                height: 100vh;
-                min-width: 100vw;
-                min-height: 100vh;
-            }
             a, .sidebar a {
                 font-size: 1.05em;
                 word-break: break-all;
@@ -341,181 +409,533 @@
             ul, ol {
                 padding-left: 18px;
             }
-            /* Prevent horizontal scroll on bubbles */
-            .bubble {
-                max-width: 100vw;
-                max-height: 100vw;
-            }
+        }
+        /* Simple Light/Dark Switch */
+        .theme-switch {
+            display: inline-block;
+            position: relative;
+            width: 56px;
+            height: 28px;
+        }
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .theme-switch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #222;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+        .theme-switch .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 3px;
+            top: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: 0 0 4px #fff8;
+        }
+        .theme-switch .slider:after {
+            content: "☀️";
+            position: absolute;
+            right: 6px;
+            top: 4px;
+            font-size: 16px;
+            color: #fff;
+            transition: 0.3s;
+            pointer-events: none;
+        }
+        .theme-switch input:checked + .slider {
+            background-color: #ffd600;
+        }
+        .theme-switch input:checked + .slider:before {
+            transform: translateX(28px);
+            background-color: #ffd600;
+            box-shadow: 0 0 4px #ffd60080;
+        }
+        .theme-switch input:checked + .slider:after {
+            color: #222;
+            right: 32px;
+            top: 4px;
         }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Inter:400,600,700&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="bubbles-bg"></div>
-<div class="container">
+<div id="bg-split-overlay"></div>
+<div class="container card">
+    <!-- Theme Switcher -->
+    <div style="position:absolute;top:18px;left:24px;z-index:10;">
+      <label class="theme-switch">
+        <input type="checkbox" id="dark-mode-toggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <!-- Language Switcher -->
+    <div style="position:absolute;top:18px;right:24px;z-index:10;">
+        <select id="lang-switch" style="padding:4px 10px;border-radius:6px;border:1px solid #bbb;">
+            <option value="pt">🇵 Portugês</option>
+            <option value="en">🇬🇧 Inglês</option>
+            <option value="es">🇪🇸 Espanhol</option>
+            <option value="nl">🇳🇱 Holandês</option>
+            <option value="pl">🇵🇱 Polaco</option>
+        </select>
+    </div>
     <aside class="sidebar">
-        <a href="cv.pdf" download style="display:block;text-align:center;margin-bottom:18px;">
-            <button class="download-btn" type="button">📄 Descarregar CV (PDF)</button>
-        </a>
-        <a href="https://i.imgur.com/KD0AgdS.png" target="_blank" style="display:block;width:110px;height:110px;margin:0 auto 18px auto;">
-            <img src="https://i.imgur.com/KD0AgdS.png" alt="Miguel Monsanto" style="width:100%;height:100%;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #bbb;">
-        </a>
-        <h1>miguel Monsanto</h1>
-        <div class="subtitle">OPERADOR DE EMPILHADOR &nbsp;|&nbsp; WEB DEVELOPER</div>
-        <section>
-            <strong>Detalhes</strong>
-            <ul>
-                <li>Alpiarça, Portugal</li>
-                <li>932367414</li>
-                <li><a href="mailto:osecaadegas95@gmail.com">osecaadegas95@gmail.com</a></li>
-            </ul>
-        </section>
-        <section>
-            <button class="collapsible"><span class="arrow">&#9654;</span>Competências</button>
-            <div class="content-collapsible">
+        <div class="sidebar-gradient-bg"></div>
+        <div class="sidebar-content" style="position:relative;z-index:5;">
+            <a href="https://i.imgur.com/KD0AgdS.png" target="_blank" style="display:block;width:110px;height:110px;margin:0 auto 18px auto;">
+                <img src="https://i.imgur.com/KD0AgdS.png" alt="Miguel Monsanto" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #bbb;">
+            </a>
+            <h1 id="name">miguel Monsanto</h1>
+            <div class="subtitle" id="subtitle">OPERADOR DE EMPILHADOR &nbsp;|&nbsp; WEB DEVELOPER</div>
+            <section>
+                <strong id="details-title">Detalhes</strong>
                 <ul>
-                    <li>Leadership and Teamwork</li>
-                    <li>Creative Problem Solving</li>
-                    <li>Highly Organized</li>
-                    <li>Effective Time Management</li>
-                    <li>Fast Learner</li>
-                    <li>Communication Skills</li>
-                    <li>Ability to Work Under Pressure</li>
-                    <li>Computer Skills</li>
-                    <li>Programming (see below)</li>
+                    <li id="location">Alpiarça, Portugal</li>
+                    <li id="phone">932367414</li>
+                    <li><a href="mailto:osecaadegas95@gmail.com" id="email">osecaadegas95@gmail.com</a></li>
                 </ul>
-            </div>
-        </section>
-        <section>
-            <button class="collapsible"><span class="arrow">&#9654;</span>Idiomas</button>
-            <div class="content-collapsible">
-                <ul>
-                    <li>PT <div class="skills-bar"><span style="width:100%"></span></div></li>
-                    <li>NL <div class="skills-bar"><span style="width:70%"></span></div></li>
-                    <li>PL <div class="skills-bar"><span style="width:40%"></span></div></li>
-                    <li>EN <div class="skills-bar"><span style="width:80%"></span></div></li>
-                    <li>ES <div class="skills-bar"><span style="width:60%"></span></div></li>
-                </ul>
-            </div>
-        </section>
-        <section>
-            <button class="collapsible"><span class="arrow">&#9654;</span>Programming Skills</button>
-            <div class="content-collapsible">
-                <ul>
-                    <li>HTML, CSS, JavaScript</li>
-                    <li>SQL, MySQL</li>
-                    <li>Git &amp; GitHub</li>
-                </ul>
-            </div>
-        </section>
+            </section>
+            <section>
+                <button class="collapsible"><span class="arrow">&#9654;</span><span id="skills-title">Competências</span></button>
+                <div class="content-collapsible">
+                    <ul>
+                        <li id="skill1">Leadership and Teamwork</li>
+                        <li id="skill2">Creative Problem Solving</li>
+                        <li id="skill3">Highly Organized</li>
+                        <li id="skill4">Effective Time Management</li>
+                        <li id="skill5">Fast Learner</li>
+                        <li id="skill6">Communication Skills</li>
+                        <li id="skill7">Ability to Work Under Pressure</li>
+                        <li id="skill8">Computer Skills</li>
+                        <li id="skill9">Programming (see below)</li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <button class="collapsible"><span class="arrow">&#9654;</span><span id="languages-title">Idiomas</span></button>
+                <div class="content-collapsible">
+                    <ul>
+                        <li>PT <div class="skills-bar"><span style="width:100%"></span></div></li>
+                        <li>NL <div class="skills-bar"><span style="width:70%"></span></div></li>
+                        <li>PL <div class="skills-bar"><span style="width:40%"></span></div></li>
+                        <li>EN <div class="skills-bar"><span style="width:80%"></span></div></li>
+                        <li>ES <div class="skills-bar"><span style="width:60%"></span></div></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <button class="collapsible"><span class="arrow">&#9654;</span><span id="progskills-title">Programming Skills</span></button>
+                <div class="content-collapsible">
+                    <ul>
+                        <li id="prog1">HTML, CSS, JavaScript</li>
+                        <li id="prog2">SQL, MySQL</li>
+                        <li id="prog3">Git &amp; GitHub</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </aside>
     <main class="main">
-        <button class="collapsible active"><span class="arrow">&#9654;</span>Perfil</button>
+        <button class="collapsible active"><span class="arrow">&#9654;</span><span id="profile-title">Perfil</span></button>
         <div class="content-collapsible open">
-            <h2 style="margin-top:0;">Perfil</h2>
-            <p>
+            <h2 style="margin-top:0;" id="profile-title2">Perfil</h2>
+            <p id="profile-desc">
                 Profissional experiente em logística, gestão de armazéns e tecnologia, com forte capacidade de liderança e organização. Atuo na otimização de processos, coordenação de equipas e controlo de inventário, sempre focado em eficiência e resultados. Tenho conhecimentos sólidos em programação e automação, desenvolvendo soluções digitais para melhorar operações logísticas. Destaco-me pela resolução rápida de problemas, compromisso com a satisfação do cliente e entrega consistente de resultados de qualidade.
             </p>
         </div>
-        <button class="collapsible"><span class="arrow">&#9654;</span>Histórico de Atividade</button>
+        <button class="collapsible"><span class="arrow">&#9654;</span><span id="history-title">Histórico de Atividade</span></button>
         <div class="content-collapsible">
-            <h2 style="margin-top:0;">Histórico de Atividade</h2>
-            <h3 class="job-title">Sub chefe, Lisja Flowers, Aalsmeer</h3>
-            <div class="job-date">Agosto 2019 – Janeiro 2023</div>
-            <p>
+            <h2 style="margin-top:0;" id="history-title2">Histórico de Atividade</h2>
+            <h3 class="job-title" id="job1-title">Sub chefe, Lisja Flowers, Aalsmeer</h3>
+            <div class="job-date" id="job1-date">Agosto 2019 – Janeiro 2023</div>
+            <p id="job1-desc">
                 Coordenação de equipa, otimização de processos de armazenamento e stock, preparação de cargas e comunicação com transportadoras. Implementação de melhorias digitais focadas em eficiência.
             </p>
-            <h3 class="job-title">Operador de retrátil, Menken en Orlando, The Hague</h3>
-            <div class="job-date">Abril 2018 – Maio 2019</div>
-            <p>
+            <h3 class="job-title" id="job2-title">Operador de retrátil, Menken en Orlando, The Hague</h3>
+            <div class="job-date" id="job2-date">Abril 2018 – Maio 2019</div>
+            <p id="job2-desc">
                 Picking de encomendas, controlo de stock e organização de armazém. Utilização de sistemas digitais para registo e otimização logística.
             </p>
-            <h3 class="job-title">Operador de empilhador, Logifruit, Almeirim</h3>
-            <div class="job-date">Novembro 2023 – Fevereiro 2025</div>
-            <p>
+            <h3 class="job-title" id="job3-title">Operador de empilhador, Logifruit, Almeirim</h3>
+            <div class="job-date" id="job3-date">Novembro 2023 – Fevereiro 2025</div>
+            <p id="job3-desc">
                 Organização do ambiente de trabalho, atendimento ao cliente e resolução eficiente de questões. Aplicação de automação e scripts para aumentar a produtividade.
             </p>
         </div>
-        <button class="collapsible"><span class="arrow">&#9654;</span>Educação</button>
+        <button class="collapsible"><span class="arrow">&#9654;</span><span id="education-title">Educação</span></button>
         <div class="content-collapsible">
-            <h2 style="margin-top:0;">Educação</h2>
-            <p>
+            <h2 style="margin-top:0;" id="education-title2">Educação</h2>
+            <p id="education-desc">
                 VMBO 3, Jonathan de Wit, The Hague
             </p>
         </div>
-        <button class="collapsible"><span class="arrow">&#9654;</span>Projetos de Programação</button>
+        <button class="collapsible"><span class="arrow">&#9654;</span><span id="projects-title">Projetos de Programação</span></button>
         <div class="content-collapsible">
-            <h2 style="margin-top:0;">Projetos de Programação</h2>
+            <h2 style="margin-top:0;" id="projects-title2">Projetos de Programação</h2>
             <ul>
-                <li>Automação de relatórios de inventário usando Python e Excel.</li>
-                <li>Desenvolvimento de scripts para otimizar processos logísticos.</li>
-                <li>Criação de páginas web para controle de estoque (HTML, CSS, JS).</li>
-                <li>Colaboração em projetos no GitHub.</li>
+                <li id="proj1">Automação de relatórios de inventário usando Python e Excel.</li>
+                <li id="proj2">Desenvolvimento de scripts para otimizar processos logísticos.</li>
+                <li id="proj3">Criação de páginas web para controle de estoque (HTML, CSS, JS).</li>
+                <li id="proj4">Colaboração em projetos no GitHub.</li>
             </ul>
         </div>
-        <button class="collapsible"><span class="arrow">&#9654;</span>Web Projects</button>
+        <button class="collapsible"><span class="arrow">&#9654;</span><span id="webprojects-title">Web Projects</span></button>
         <div class="content-collapsible">
-            <h2 style="margin-top:0;">Web Projects</h2>
-            <ul>
+            <h2 style="margin-top:0;" id="webprojects-title2">Web Projects</h2>
+            <ul id="webprojects-list" style="padding-left:0;list-style:none;">
                 <li>
-                    <a href="https://osecaadegas.github.io/95/" target="_blank">osecaadegas.github.io/95/</a>,
-                    <a href="https://osecaadegas.github.io/overlay/" target="_blank">osecaadegas.github.io/overlay/</a>,
-                    <a href="https://osecaadegas.github.io/publictracker/" target="_blank">osecaadegas.github.io/publictracker/</a>
-                    <br>
-                    Desenvolvimento de aplicações web para divulgação e suporte ao canal de streaming na Twitch (<a href="https://twitch.tv/osecaadegas95" target="_blank">twitch.tv/osecaadegas95</a>), com foco em integração de funcionalidades, acompanhamento de atividades e promoção de marcas do setor de entretenimento online. Experiência adicional no desenvolvimento de projetos em HTML, CSS e JavaScript para outros streamers, adaptando soluções às suas necessidades específicas.
+                    <strong>Links:</strong>
+                    <ul style="margin:6px 0 12px 0; padding-left:18px;">
+                        <li>
+                            <a href="https://osecaadegas.github.io/95/" target="_blank">osecaadegas.github.io/95/</a>
+                        </li>
+                        <li>
+                            <a href="https://osecaadegas.github.io/overlay/" target="_blank">osecaadegas.github.io/overlay/</a>
+                        </li>
+                        <li>
+                            <a href="https://osecaadegas.github.io/publictracker/" target="_blank">osecaadegas.github.io/publictracker/</a>
+                        </li>
+                        <li>
+                            <a href="https://twitch.tv/osecaadegas95" target="_blank">twitch.tv/osecaadegas95</a>
+                        </li>
+                    </ul>
+                </li>
+                <li style="margin-bottom:8px;">
+                    <strong>Descrição:</strong>
+                    <div id="webprojects-desc" style="margin-top:4px;">
+                        Desenvolvimento de aplicações web para divulgação e suporte ao canal de streaming na Twitch, com foco em integração de funcionalidades, acompanhamento de atividades e promoção de marcas do setor de entretenimento online.
+                        <br>
+                        Experiência adicional no desenvolvimento de projetos em HTML, CSS e JavaScript para outros streamers, adaptando soluções às suas necessidades específicas.
+                    </div>
                 </li>
             </ul>
         </div>
     </main>
+    <!-- Download Button at Bottom Right -->
+    <a href="cv.pdf" download style="position:absolute;bottom:24px;right:24px;z-index:20;display:block;">
+        <button class="button" type="button">
+            <span class="button-content">Download (.PDF)</span>
+        </button>
+    </a>
 </div>
 <script>
     // Collapsible sections with arrow rotation
-    document.querySelectorAll('.collapsible').forEach(function(btn, idx) {
+    document.querySelectorAll('.collapsible').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var content = btn.nextElementSibling;
             var isOpen = content.classList.contains('open');
-            // Close all except the clicked one
-            document.querySelectorAll('.content-collapsible').forEach(function(c, i) {
+            document.querySelectorAll('.content-collapsible').forEach(function(c) {
                 if (c !== content) c.classList.remove('open');
             });
             document.querySelectorAll('.collapsible').forEach(function(b) {
                 b.classList.remove('active');
             });
-            // Toggle current
             content.classList.toggle('open', !isOpen);
             btn.classList.toggle('active', !isOpen);
         });
     });
-    // Open the first main section by default
     document.querySelectorAll('.main .content-collapsible')[0].classList.add('open');
     document.querySelectorAll('.main .collapsible')[0].classList.add('active');
 
-    // Bubbly background effect
+    // 3D tilt effect for main card
     (function() {
-        const bubbleColors = [
-            'rgba(189,189,189,0.18)',
-            'rgba(200,200,200,0.13)',
-            'rgba(237,237,240,0.15)',
-            'rgba(180,180,180,0.12)'
-        ];
-        const bubblesBg = document.querySelector('.bubbles-bg');
-        const bubbleCount = 18;
-        for (let i = 0; i < bubbleCount; i++) {
-            const b = document.createElement('div');
-            b.className = 'bubble';
-            const size = Math.random() * 80 + 40;
-            b.style.width = b.style.height = size + 'px';
-            b.style.left = (Math.random() * 100) + 'vw';
-            b.style.animationDuration = (12 + Math.random() * 12) + 's';
-            b.style.animationDelay = (-Math.random() * 18) + 's';
-            b.style.background = `radial-gradient(circle at 30% 30%, ${bubbleColors[i % bubbleColors.length]} 0%, #ededf0 100%)`;
-            // Add inner for floating effect
-            const inner = document.createElement('div');
-            inner.className = 'bubble-inner';
-            b.appendChild(inner);
-            bubblesBg.appendChild(b);
-        }
+        const card = document.querySelector('.container.card');
+        if (!card) return;
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * 5;
+            const rotateY = ((x - centerX) / centerX) * -5;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+        });
     })();
+
+    // --- TRANSLATION LOGIC ---
+    const translations = {
+        pt: {
+            name: "miguel Monsanto",
+            subtitle: "OPERADOR DE EMPILHADOR | WEB DEVELOPER",
+            "details-title": "Detalhes",
+            location: "Alpiarça, Portugal",
+            phone: "932367414",
+            email: "osecaadegas95@gmail.com",
+            "skills-title": "Competências",
+            skill1: "Liderança e Trabalho em Equipa",
+            skill2: "Resolução Criativa de Problemas",
+            skill3: "Altamente Organizado",
+            skill4: "Gestão Eficaz do Tempo",
+            skill5: "Aprendiz Rápido",
+            skill6: "Competências de Comunicação",
+            skill7: "Capacidade de Trabalhar sob Pressão",
+            skill8: "Competências Informáticas",
+            skill9: "Programação (ver abaixo)",
+            "languages-title": "Idiomas",
+            "progskills-title": "Competências de Programação",
+            prog1: "HTML, CSS, JavaScript",
+            prog2: "SQL, MySQL",
+            prog3: "Git & GitHub",
+            "profile-title": "Perfil",
+            "profile-title2": "Perfil",
+            "profile-desc": "Profissional experiente em logística, gestão de armazéns e tecnologia, com forte capacidade de liderança e organização. Atuo na otimização de processos, coordenação de equipas e controlo de inventário, sempre focado em eficiência e resultados. Tenho conhecimentos sólidos em programação e automação, desenvolvendo soluções digitais para melhorar operações logísticas. Destaco-me pela resolução rápida de problemas, compromisso com a satisfação do cliente e entrega consistente de resultados de qualidade.",
+            "history-title": "Histórico de Atividade",
+            "history-title2": "Histórico de Atividade",
+            "job1-title": "Sub chefe, Lisja Flowers, Aalsmeer",
+            "job1-date": "Agosto 2019 – Janeiro 2023",
+            "job1-desc": "Coordenação de equipa, otimização de processos de armazenamento e stock, preparação de cargas e comunicação com transportadoras. Implementação de melhorias digitais focadas em eficiência.",
+            "job2-title": "Operador de retrátil, Menken en Orlando, The Hague",
+            "job2-date": "Abril 2018 – Maio 2019",
+            "job2-desc": "Picking de encomendas, controlo de stock e organização de armazém. Utilização de sistemas digitais para registo e otimização logística.",
+            "job3-title": "Operador de empilhador, Logifruit, Almeirim",
+            "job3-date": "Novembro 2023 – Fevereiro 2025",
+            "job3-desc": "Organização do ambiente de trabalho, atendimento ao cliente e resolução eficiente de questões. Aplicação de automação e scripts para aumentar a produtividade.",
+            "education-title": "Educação",
+            "education-title2": "Educação",
+            "education-desc": "VMBO 3, Jonathan de Wit, The Hague",
+            "projects-title": "Projetos de Programação",
+            "projects-title2": "Projetos de Programação",
+            proj1: "Automação de relatórios de inventário usando Python e Excel.",
+            proj2: "Desenvolvimento de scripts para otimizar processos logísticos.",
+            proj3: "Criação de páginas web para controle de estoque (HTML, CSS, JS).",
+            proj4: "Colaboração em projetos no GitHub.",
+            "webprojects-title": "Web Projects",
+            "webprojects-title2": "Web Projects",
+            "webprojects-desc": `Desenvolvimento de aplicações web para divulgação e suporte ao canal de streaming na Twitch, com foco em integração de funcionalidades, acompanhamento de atividades e promoção de marcas do setor de entretenimento online.<br>Experiência adicional no desenvolvimento de projetos em HTML, CSS e JavaScript para outros streamers, adaptando soluções às suas necessidades específicas.`
+        },
+        en: {
+            name: "Miguel Monsanto",
+            subtitle: "FORKLIFT OPERATOR | WEB DEVELOPER",
+            "details-title": "Details",
+            location: "Alpiarça, Portugal",
+            phone: "+351 932367414",
+            email: "osecaadegas95@gmail.com",
+            "skills-title": "Skills",
+            skill1: "Leadership and Teamwork",
+            skill2: "Creative Problem Solving",
+            skill3: "Highly Organized",
+            skill4: "Effective Time Management",
+            skill5: "Fast Learner",
+            skill6: "Communication Skills",
+            skill7: "Ability to Work Under Pressure",
+            skill8: "Computer Skills",
+            skill9: "Programming (see below)",
+            "languages-title": "Languages",
+            "progskills-title": "Programming Skills",
+            prog1: "HTML, CSS, JavaScript",
+            prog2: "SQL, MySQL",
+            prog3: "Git & GitHub",
+            "profile-title": "Profile",
+            "profile-title2": "Profile",
+            "profile-desc": "Experienced professional in logistics, warehouse management, and technology, with strong leadership and organizational skills. I focus on process optimization, team coordination, and inventory control, always aiming for efficiency and results. I have solid knowledge in programming and automation, developing digital solutions to improve logistics operations. I stand out for quick problem-solving, commitment to customer satisfaction, and consistent delivery of quality results.",
+            "history-title": "Work History",
+            "history-title2": "Work History",
+            "job1-title": "Deputy Chief, Lisja Flowers, Aalsmeer",
+            "job1-date": "August 2019 – January 2023",
+            "job1-desc": "Team coordination, optimization of storage and stock processes, load preparation, and communication with carriers. Implementation of digital improvements focused on efficiency.",
+            "job2-title": "Reach Truck Operator, Menken en Orlando, The Hague",
+            "job2-date": "April 2018 – May 2019",
+            "job2-desc": "Order picking, stock control, and warehouse organization. Use of digital systems for registration and logistics optimization.",
+            "job3-title": "Forklift Operator, Logifruit, Almeirim",
+            "job3-date": "November 2023 – February 2025",
+            "job3-desc": "Workplace organization, customer service, and efficient issue resolution. Application of automation and scripts to increase productivity.",
+            "education-title": "Education",
+            "education-title2": "Education",
+            "education-desc": "VMBO 3, Jonathan de Wit, The Hague",
+            "projects-title": "Programming Projects",
+            "projects-title2": "Programming Projects",
+            proj1: "Inventory report automation using Python and Excel.",
+            proj2: "Development of scripts to optimize logistics processes.",
+            proj3: "Creation of web pages for stock control (HTML, CSS, JS).",
+            proj4: "Collaboration on projects on GitHub.",
+            "webprojects-title": "Web Projects",
+            "webprojects-title2": "Web Projects",
+            "webprojects-desc": `Development of web applications for promotion and support of the Twitch streaming channel, focusing on feature integration, activity tracking, and brand promotion in the online entertainment sector.<br>Additional experience in developing HTML, CSS, and JavaScript projects for other streamers, adapting solutions to their specific needs.`
+        },
+        es: {
+            name: "Miguel Monsanto",
+            subtitle: "OPERADOR DE CARRETILLA | DESARROLLADOR WEB",
+            "details-title": "Detalles",
+            location: "Alpiarça, Portugal",
+            phone: "+351 932367414",
+            email: "osecaadegas95@gmail.com",
+            "skills-title": "Competencias",
+            skill1: "Liderazgo y Trabajo en Equipo",
+            skill2: "Resolución Creativa de Problemas",
+            skill3: "Altamente Organizado",
+            skill4: "Gestión Efectiva del Tiempo",
+            skill5: "Aprendiz Rápido",
+            skill6: "Habilidades de Comunicación",
+            skill7: "Capacidad para Trabajar Bajo Presión",
+            skill8: "Habilidades Informáticas",
+            skill9: "Programación (ver abajo)",
+            "languages-title": "Idiomas",
+            "progskills-title": "Habilidades de Programación",
+            prog1: "HTML, CSS, JavaScript",
+            prog2: "SQL, MySQL",
+            prog3: "Git & GitHub",
+            "profile-title": "Perfil",
+            "profile-title2": "Perfil",
+            "profile-desc": "Profesional experimentado em logística, gestão de almacenes e tecnologia, com gran capacidad de liderazgo e organización. Me dedico a la optimización de procesos, coordinación de equipos y control de inventario, siempre enfocado en la eficiencia y los resultados. Tengo sólidos conocimientos en programación y automatización, desarrollando soluciones digitales para mejorar las operaciones logísticas. Destaco por la rápida resolución de problemas, el compromiso con la satisfacción del cliente y la entrega constante de resultados de calidad.",
+            "history-title": "Historial Laboral",
+            "history-title2": "Historial Laboral",
+            "job1-title": "Subjefe, Lisja Flowers, Aalsmeer",
+            "job1-date": "Agosto 2019 – Enero 2023",
+            "job1-desc": "Coordinación de equipos, optimización de procesos de almacenamiento y stock, preparación de cargas y comunicación con transportistas. Implementación de mejoras digitales enfocadas en eficiencia.",
+            "job2-title": "Operador de Carretilla Retráctil, Menken en Orlando, La Haya",
+            "job2-date": "Abril 2018 – Mayo 2019",
+            "job2-desc": "Preparación de pedidos, control de stock y organización de almacén. Uso de sistemas digitales para el registro y la optimización logística.",
+            "job3-title": "Operador de Carretilla, Logifruit, Almeirim",
+            "job3-date": "Noviembre 2023 – Febrero 2025",
+            "job3-desc": "Organización del entorno de trabajo, atención al cliente y resolución eficiente de problemas. Aplicación de automatización y scripts para aumentar la productividad.",
+            "education-title": "Educación",
+            "education-title2": "Educación",
+            "education-desc": "VMBO 3, Jonathan de Wit, La Haya",
+            "projects-title": "Proyectos de Programación",
+            "projects-title2": "Proyectos de Programación",
+            proj1: "Automatización de informes de inventario usando Python y Excel.",
+            proj2: "Desarrollo de scripts para optimizar procesos logísticos.",
+            proj3: "Creación de páginas web para control de stock (HTML, CSS, JS).",
+            proj4: "Colaboración en proyectos en GitHub.",
+            "webprojects-title": "Proyectos Web",
+            "webprojects-title2": "Proyectos Web",
+            "webprojects-desc": `Desarrollo de aplicaciones web para la promoción y soporte del canal de streaming en Twitch, con enfoque en la integración de funcionalidades, seguimiento de actividades y promoción de marcas del sector de entretenimiento online.<br>Experiencia adicional en el desarrollo de proyectos en HTML, CSS y JavaScript para otros streamers, adaptando soluciones a sus necesidades específicas.`
+        },
+        nl: {
+            name: "Miguel Monsanto",
+            subtitle: "HEFTRUCKCHAUFFEUR | WEB DEVELOPER",
+            "details-title": "Details",
+            location: "Alpiarça, Portugal",
+            phone: "+351 932367414",
+            email: "osecaadegas95@gmail.com",
+            "skills-title": "Vaardigheden",
+            skill1: "Leiderschap en Teamwerk",
+            skill2: "Creatief Probleemoplossen",
+            skill3: "Zeer Georganiseerd",
+            skill4: "Effectief Tijdbeheer",
+            skill5: "Snelle Leerling",
+            skill6: "Communicatievaardigheden",
+            skill7: "Kunnen Werken Onder Druk",
+            skill8: "Computervaardigheden",
+            skill9: "Programmeren (zie hieronder)",
+            "languages-title": "Talen",
+            "progskills-title": "Programmeervaardigheden",
+            prog1: "HTML, CSS, JavaScript",
+            prog2: "SQL, MySQL",
+            prog3: "Git & GitHub",
+            "profile-title": "Profiel",
+            "profile-title2": "Profiel",
+            "profile-desc": "Ervaren professional in logistiek, magazijnbeheer en technologie, met sterke leiderschaps- en organisatorische vaardigheden. Ik richt me op procesoptimalisatie, teamcoördinatie en voorraadbeheer, altijd gericht op efficiëntie en resultaten. Ik heb solide kennis van programmeren en automatisering, en ontwikkel digitale oplossingen om logistieke operaties te verbeteren. Ik blink uit in snelle probleemoplossing, toewijding aan klanttevredenheid en consistente levering van kwaliteitsresultaten.",
+            "history-title": "Werkervaring",
+            "history-title2": "Werkervaring",
+            "job1-title": "Assistent Chef, Lisja Flowers, Aalsmeer",
+            "job1-date": "Augustus 2019 – Januari 2023",
+            "job1-desc": "Teamcoördinatie, optimalisatie van opslag- en voorraadprocessen, laadvoorbereiding en communicatie met vervoerders. Implementatie van digitale verbeteringen gericht op efficiëntie.",
+            "job2-title": "Reachtruckchauffeur, Menken en Orlando, Den Haag",
+            "job2-date": "April 2018 – Mei 2019",
+            "job2-desc": "Orderpicken, voorraadbeheer en magazijnorganisatie. Gebruik van digitale systemen voor registratie en logistieke optimalisatie.",
+            "job3-title": "Heftruckchauffeur, Logifruit, Almeirim",
+            "job3-date": "November 2023 – Februari 2025",
+            "job3-desc": "Werkplekorganisatie, klantenservice en efficiënte probleemoplossing. Toepassing van automatisering en scripts om de productiviteit te verhogen.",
+            "education-title": "Opleiding",
+            "education-title2": "Opleiding",
+            "education-desc": "VMBO 3, Jonathan de Wit, Den Haag",
+            "projects-title": "Programmeurprojecten",
+            "projects-title2": "Programmeurprojecten",
+            proj1: "Automatisering van inventarisrapporten met Python en Excel.",
+            proj2: "Ontwikkeling van scripts om logistieke processen te optimaliseren.",
+            proj3: "Webpagina's maken voor voorraadbeheer (HTML, CSS, JS).",
+            proj4: "Samenwerking aan projecten op GitHub.",
+            "webprojects-title": "Webprojecten",
+            "webprojects-title2": "Webprojecten",
+            "webprojects-desc": `Ontwikkeling van webapplicaties voor promotie en ondersteuning van het Twitch-streamingkanaal, met focus op integratie van functionaliteiten, activiteitentracking en merkpromotie in de online entertainmentsector.<br>Extra ervaring met het ontwikkelen van HTML-, CSS- en JavaScript-projecten voor andere streamers, waarbij oplossingen worden aangepast aan hun specifieke behoeften.`
+        },
+        pl: {
+            name: "Miguel Monsanto",
+            subtitle: "OPERATOR WÓZKA WIDŁOWEGO | WEB DEVELOPER",
+            "details-title": "Szczegóły",
+            location: "Alpiarça, Portugalia",
+            phone: "+351 932367414",
+            email: "osecaadegas95@gmail.com",
+            "skills-title": "Umiejętności",
+            skill1: "Przywództwo i Praca Zespołowa",
+            skill2: "Kreatywne Rozwiązywanie Problemów",
+            skill3: "Wysoka Organizacja",
+            skill4: "Efektywne Zarządzanie Czasem",
+            skill5: "Szybka Nauka",
+            skill6: "Umiejętności Komunikacyjne",
+            skill7: "Umiejętność Pracy Pod Presją",
+            skill8: "Umiejętności Komputerowe",
+            skill9: "Programowanie (patrz poniżej)",
+            "languages-title": "Języki",
+            "progskills-title": "Umiejętności Programistyczne",
+            prog1: "HTML, CSS, JavaScript",
+            prog2: "SQL, MySQL",
+            prog3: "Git & GitHub",
+            "profile-title": "Profil",
+            "profile-title2": "Profil",
+            "profile-desc": "Doświadczony specjalista w logistyce, zarządzaniu magazynem i technologii, z silnymi umiejętnościami przywódczymi i organizacyjnymi. Skupiam się na optymalizacji procesów, koordynacji zespołu i kontroli zapasów, zawsze z naciskiem na efektywność i wyniki. Posiadam solidną wiedzę z zakresu programowania i automatyzacji, opracowując cyfrowe rozwiązania usprawniające operacje logistyczne. Wyróżniam się szybkim rozwiązywaniem problemów, zaangażowaniem w satysfakcję klienta i konsekwentnym dostarczaniem wysokiej jakości wyników.",
+            "history-title": "Historia Zatrudnienia",
+            "history-title2": "Historia Zatrudnienia",
+            "job1-title": "Zastępca Szefa, Lisja Flowers, Aalsmeer",
+            "job1-date": "Sierpień 2019 – Styczeń 2023",
+            "job1-desc": "Koordynacja zespołu, optymalizacja procesów magazynowania i zapasów, przygotowanie ładunków oraz komunikacja z przewoźnikami. Wdrażanie cyfrowych usprawnień ukierunkowanych na efektywność.",
+            "job2-title": "Operator Wózka Bocznogo, Menken en Orlando, Haga",
+            "job2-date": "Kwiecień 2018 – Maj 2019",
+            "job2-desc": "Kompletowanie zamówień, kontrola zapasów i organizacja magazynu. Wykorzystanie systemów cyfrowych do rejestracji i optymalizacji logistyki.",
+            "job3-title": "Operator Wózka Widłowego, Logifruit, Almeirim",
+            "job3-date": "Listopad 2023 – Luty 2025",
+            "job3-desc": "Organizacja miejsca pracy, obsługa klienta i efektywne rozwiązywanie problemów. Zastosowanie automatyzacji i skryptów w celu zwiększenia wydajności.",
+            "education-title": "Wykształcenie",
+            "education-title2": "Wykształcenie",
+            "education-desc": "VMBO 3, Jonathan de Wit, Haga",
+            "projects-title": "Projekty Programistyczne",
+            "projects-title2": "Projekty Programistyczne",
+            proj1: "Automatyzacja raportów magazynowych przy użyciu Pythona i Excela.",
+            proj2: "Tworzenie skryptów optymalizujących procesy logistyczne.",
+            proj3: "Tworzenie stron internetowych do kontroli zapasów (HTML, CSS, JS).",
+            proj4: "Współpraca przy projektach na GitHubie.",
+            "webprojects-title": "Projekty Webowe",
+            "webprojects-title2": "Projekty Webowe",
+            "webprojects-desc": `Tworzenie aplikacji internetowych do promocji i wsparcia kanału streamingowego na Twitchu, z naciskiem na integrację funkcji, śledzenie aktywności i promocję marek w sektorze rozrywki online.<br>Dodatkowe doświadczenie w tworzeniu projektów HTML, CSS i JavaScript dla innych streamerów, dostosowując rozwiązania do ich specyficznych potrzeb.`
+        }
+    };
+
+    document.getElementById('lang-switch').addEventListener('change', function() {
+        const lang = this.value;
+        const t = translations[lang];
+        if (!t) return;
+        for (const key in t) {
+            const el = document.getElementById(key);
+            if (el) {
+                if (key === "webprojects-desc") {
+                    el.innerHTML = t[key];
+                } else {
+                    el.textContent = t[key];
+                }
+            }
+        }
+    });
+
+    // Theme switcher logic
+    const darkModeToggle = document.getElementById('dark-mode-toggle');
+    darkModeToggle.checked = false;
+    darkModeToggle.addEventListener('change', function() {
+        document.body.classList.toggle('dark-mode', this.checked);
+    });
 </script>
 </body>
 </html>
