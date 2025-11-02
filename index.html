@@ -19,7 +19,7 @@
             --main-border: #e0e0e0;
             --shadow: 0 4px 32px #0002;
             --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-            --bg-image: url('https://i.imgur.com/x4IiBmb.jpeg');
+            --bg-image: url('images/background.jpg');
         }
         body {
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
@@ -410,6 +410,13 @@
                 padding-left: 18px;
             }
         }
+    /* WhatsApp icon next to phone */
+    .wa-icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; }
+    .wa-icon svg { width: 16px; height: 16px; display: block; }
+    .wa-icon img.wa-img { width: 16px; height: 16px; display: block; }
+    /* Telegram icon */
+    .tg-icon { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-right: 6px; vertical-align: middle; }
+    .tg-icon svg { width: 16px; height: 16px; display: block; }
         /* Simple Light/Dark Switch */
         .theme-switch {
             display: inline-block;
@@ -491,16 +498,34 @@
     <aside class="sidebar">
         <div class="sidebar-gradient-bg"></div>
         <div class="sidebar-content" style="position:relative;z-index:5;">
-            <a href="https://i.imgur.com/KD0AgdS.png" target="_blank" style="display:block;width:110px;height:110px;margin:0 auto 18px auto;">
-                <img src="https://i.imgur.com/KD0AgdS.png" alt="Miguel Monsanto" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #bbb;">
+            <a href="profile.png" target="_blank" style="display:block;width:110px;height:110px;margin:0 auto 18px auto;">
+                <img src="profile.png" alt="Miguel Monsanto" style="width:120px;height:120px;object-fit:cover;border-radius:50%;box-shadow:0 2px 8px #bbb;">
             </a>
-            <h1 id="name">miguel Monsanto</h1>
-            <div class="subtitle" id="subtitle">OPERADOR DE EMPILHADOR &nbsp;|&nbsp; WEB DEVELOPER</div>
+            <h1 id="name">Miguel Monsanto</h1>
+            <div class="subtitle" id="subtitle">OPERADOR DE EMPILHADOR &nbsp;|&nbsp; PROGRAMADOR (PART-TIME)</div>
             <section>
                 <strong id="details-title">Detalhes</strong>
                 <ul>
                     <li id="location">Alpiarça, Portugal</li>
-                    <li id="phone">932367414</li>
+                    <li>
+                        <a href="https://wa.me/351936626909" target="_blank" rel="noopener" aria-label="WhatsApp">
+                            <span class="wa-icon" aria-hidden="true">
+                                <img class="wa-img" src="https://static.whatsapp.net/rsrc.php/v4/yz/r/ujTY9i_Jhs1.png" alt=""/>
+                            </span>
+                            <span id="phone">936626909</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/osecaadegas" target="_blank" rel="noopener" aria-label="Telegram">
+                            <span class="tg-icon" aria-hidden="true">
+                                <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                                    <circle cx="120" cy="120" r="120" fill="#26A5E4"/>
+                                    <path fill="#ffffff" d="M177.3 76.9L61.2 123.6c-3.2 1.3-3 5.9.3 6.9l29.6 9.3c2.1.7 4.4.3 6.1-1l57.3-43.1c1.2-.9 2.6.7 1.6 1.8l-46.4 49.6c-1.7 1.8-2.4 4.3-2 6.8l3.3 20.9c1 6.1 9.3 8.2 13.1 3.3l12.5-15.9c1.2-1.5 2.8-2.7 4.6-3.4l30.7-12c5.7-2.2 8.3-8.8 5.7-14.3l-14.4-30.9c-2-4.3-6.9-6.3-11.4-4.6z"/>
+                                </svg>
+                            </span>
+                            <span id="telegram">@osecaadegas</span>
+                        </a>
+                    </li>
                     <li><a href="mailto:osecaadegas95@gmail.com" id="email">osecaadegas95@gmail.com</a></li>
                 </ul>
             </section>
@@ -509,14 +534,14 @@
                 <div class="content-collapsible">
                     <ul>
                         <li id="skill1">Leadership and Teamwork</li>
-                        <li id="skill2">Creative Problem Solving</li>
-                        <li id="skill3">Highly Organized</li>
-                        <li id="skill4">Effective Time Management</li>
-                        <li id="skill5">Fast Learner</li>
-                        <li id="skill6">Communication Skills</li>
-                        <li id="skill7">Ability to Work Under Pressure</li>
-                        <li id="skill8">Computer Skills</li>
-                        <li id="skill9">Programming (see below)</li>
+                        <li id="skill2">Warehouse Safety Procedures</li>
+                        <li id="skill3">Creative Problem Solving</li>
+                        <li id="skill4">Highly Organized</li>
+                        <li id="skill5">Effective Time Management</li>
+                        <li id="skill6">Fast Learner</li>
+                        <li id="skill7">Communication Skills</li>
+                        <li id="skill8">Ability to Work Under Pressure</li>
+                        <li id="skill9">Computer Skills</li>
                     </ul>
                 </div>
             </section>
@@ -561,7 +586,7 @@
                 Coordenação de equipa, otimização de processos de armazenamento e stock, preparação de cargas e comunicação com transportadoras. Implementação de melhorias digitais focadas em eficiência.
             </p>
             <h3 class="job-title" id="job2-title">Operador de retrátil, Menken en Orlando, The Hague</h3>
-            <div class="job-date" id="job2-date">Abril 2018 – Maio 2019</div>
+            <div class="job-date" id="job2-date">Abril 2016 – Maio 2019</div>
             <p id="job2-desc">
                 Picking de encomendas, controlo de stock e organização de armazém. Utilização de sistemas digitais para registo e otimização logística.
             </p>
@@ -569,6 +594,11 @@
             <div class="job-date" id="job3-date">Novembro 2023 – Fevereiro 2025</div>
             <p id="job3-desc">
                 Organização do ambiente de trabalho, atendimento ao cliente e resolução eficiente de questões. Aplicação de automação e scripts para aumentar a produtividade.
+            </p>
+            <h3 class="job-title" id="job4-title">Afiliado de Marketing/ Promotor Digital, Goldspin, LeBull, Vincspin</h3>
+            <div class="job-date" id="job4-date">Março 2023 – Presente</div>
+            <p id="job4-desc">
+                Atuação como afiliado de marcas de casino, promovendo campanhas e atraindo novos clientes através do canal Twitch.tv/osecaadegas95 e rede de contactos. Foco em engajamento, aumento de tráfego qualificado e fortalecimento do relacionamento com o público.
             </p>
         </div>
         <button class="collapsible"><span class="arrow">&#9654;</span><span id="education-title">Educação</span></button>
@@ -578,16 +608,7 @@
                 VMBO 3, Jonathan de Wit, The Hague
             </p>
         </div>
-        <button class="collapsible"><span class="arrow">&#9654;</span><span id="projects-title">Projetos de Programação</span></button>
-        <div class="content-collapsible">
-            <h2 style="margin-top:0;" id="projects-title2">Projetos de Programação</h2>
-            <ul>
-                <li id="proj1">Automação de relatórios de inventário usando Python e Excel.</li>
-                <li id="proj2">Desenvolvimento de scripts para otimizar processos logísticos.</li>
-                <li id="proj3">Criação de páginas web para controle de estoque (HTML, CSS, JS).</li>
-                <li id="proj4">Colaboração em projetos no GitHub.</li>
-            </ul>
-        </div>
+        
         <button class="collapsible"><span class="arrow">&#9654;</span><span id="webprojects-title">Web Projects</span></button>
         <div class="content-collapsible">
             <h2 style="margin-top:0;" id="webprojects-title2">Web Projects</h2>
@@ -602,7 +623,7 @@
                             <a href="https://osecaadegas.github.io/overlay/" target="_blank">osecaadegas.github.io/overlay/</a>
                         </li>
                         <li>
-                            <a href="https://osecaadegas.github.io/publictracker/" target="_blank">osecaadegas.github.io/publictracker/</a>
+                            <a href="https://osecaadegas.github.io/Luzion/" target="_blank">Website (www.luzion.pt)</a>
                         </li>
                         <li>
                             <a href="https://twitch.tv/osecaadegas95" target="_blank">twitch.tv/osecaadegas95</a>
@@ -668,22 +689,22 @@
     // --- TRANSLATION LOGIC ---
     const translations = {
         pt: {
-            name: "miguel Monsanto",
+            name: "Miguel Monsanto",
             subtitle: "OPERADOR DE EMPILHADOR | WEB DEVELOPER",
             "details-title": "Detalhes",
             location: "Alpiarça, Portugal",
-            phone: "932367414",
+            phone: "936626909",
             email: "osecaadegas95@gmail.com",
             "skills-title": "Competências",
             skill1: "Liderança e Trabalho em Equipa",
-            skill2: "Resolução Criativa de Problemas",
-            skill3: "Altamente Organizado",
-            skill4: "Gestão Eficaz do Tempo",
-            skill5: "Aprendiz Rápido",
-            skill6: "Competências de Comunicação",
-            skill7: "Capacidade de Trabalhar sob Pressão",
-            skill8: "Competências Informáticas",
-            skill9: "Programação (ver abaixo)",
+            skill2: "Procedimentos de Segurança em Armazéns",
+            skill3: "Resolução Criativa de Problemas",
+            skill4: "Altamente Organizado",
+            skill5: "Gestão Eficaz do Tempo",
+            skill6: "Aprendiz Rápido",
+            skill7: "Competências de Comunicação",
+            skill8: "Capacidade de Trabalhar sob Pressão",
+            skill9: "Competências Informáticas",
             "languages-title": "Idiomas",
             "progskills-title": "Competências de Programação",
             prog1: "HTML, CSS, JavaScript",
@@ -698,11 +719,14 @@
             "job1-date": "Agosto 2019 – Janeiro 2023",
             "job1-desc": "Coordenação de equipa, otimização de processos de armazenamento e stock, preparação de cargas e comunicação com transportadoras. Implementação de melhorias digitais focadas em eficiência.",
             "job2-title": "Operador de retrátil, Menken en Orlando, The Hague",
-            "job2-date": "Abril 2018 – Maio 2019",
+            "job2-date": "Abril 2016 – Maio 2019",
             "job2-desc": "Picking de encomendas, controlo de stock e organização de armazém. Utilização de sistemas digitais para registo e otimização logística.",
             "job3-title": "Operador de empilhador, Logifruit, Almeirim",
             "job3-date": "Novembro 2023 – Fevereiro 2025",
             "job3-desc": "Organização do ambiente de trabalho, atendimento ao cliente e resolução eficiente de questões. Aplicação de automação e scripts para aumentar a produtividade.",
+            "job4-title": "Afiliado de Marketing/ Promotor Digital, Goldspin, LeBull, Vincspin",
+            "job4-date": "Março 2023 – Presente",
+            "job4-desc": "Atuação como afiliado de marcas de casino, promovendo campanhas e atraindo novos clientes através do canal Twitch.tv/osecaadegas95 e rede de contactos. Foco em engajamento, aumento de tráfego qualificado e fortalecimento do relacionamento com o público.",
             "education-title": "Educação",
             "education-title2": "Educação",
             "education-desc": "VMBO 3, Jonathan de Wit, The Hague",
@@ -721,18 +745,18 @@
             subtitle: "FORKLIFT OPERATOR | WEB DEVELOPER",
             "details-title": "Details",
             location: "Alpiarça, Portugal",
-            phone: "+351 932367414",
+            phone: "+351 936626909",
             email: "osecaadegas95@gmail.com",
             "skills-title": "Skills",
             skill1: "Leadership and Teamwork",
-            skill2: "Creative Problem Solving",
-            skill3: "Highly Organized",
-            skill4: "Effective Time Management",
-            skill5: "Fast Learner",
-            skill6: "Communication Skills",
-            skill7: "Ability to Work Under Pressure",
-            skill8: "Computer Skills",
-            skill9: "Programming (see below)",
+            skill2: "Warehouse Safety Procedures",
+            skill3: "Creative Problem Solving",
+            skill4: "Highly Organized",
+            skill5: "Effective Time Management",
+            skill6: "Fast Learner",
+            skill7: "Communication Skills",
+            skill8: "Ability to Work Under Pressure",
+            skill9: "Computer Skills",
             "languages-title": "Languages",
             "progskills-title": "Programming Skills",
             prog1: "HTML, CSS, JavaScript",
@@ -747,11 +771,14 @@
             "job1-date": "August 2019 – January 2023",
             "job1-desc": "Team coordination, optimization of storage and stock processes, load preparation, and communication with carriers. Implementation of digital improvements focused on efficiency.",
             "job2-title": "Reach Truck Operator, Menken en Orlando, The Hague",
-            "job2-date": "April 2018 – May 2019",
+            "job2-date": "April 2016 – May 2019",
             "job2-desc": "Order picking, stock control, and warehouse organization. Use of digital systems for registration and logistics optimization.",
             "job3-title": "Forklift Operator, Logifruit, Almeirim",
             "job3-date": "November 2023 – February 2025",
             "job3-desc": "Workplace organization, customer service, and efficient issue resolution. Application of automation and scripts to increase productivity.",
+            "job4-title": "Marketing Affiliate / Digital Promoter, Goldspin, LeBull, Vincspin",
+            "job4-date": "March 2023 – Present",
+            "job4-desc": "Affiliate for casino brands, promoting campaigns and acquiring new customers through Twitch.tv/osecaadegas95 and personal network. Focused on engagement, qualified traffic growth, and strengthening audience relationships.",
             "education-title": "Education",
             "education-title2": "Education",
             "education-desc": "VMBO 3, Jonathan de Wit, The Hague",
@@ -770,18 +797,18 @@
             subtitle: "OPERADOR DE CARRETILLA | DESARROLLADOR WEB",
             "details-title": "Detalles",
             location: "Alpiarça, Portugal",
-            phone: "+351 932367414",
+            phone: "+351 936626909",
             email: "osecaadegas95@gmail.com",
             "skills-title": "Competencias",
             skill1: "Liderazgo y Trabajo en Equipo",
-            skill2: "Resolución Creativa de Problemas",
-            skill3: "Altamente Organizado",
-            skill4: "Gestión Efectiva del Tiempo",
-            skill5: "Aprendiz Rápido",
-            skill6: "Habilidades de Comunicación",
-            skill7: "Capacidad para Trabajar Bajo Presión",
-            skill8: "Habilidades Informáticas",
-            skill9: "Programación (ver abajo)",
+            skill2: "Procedimientos de Seguridad en Almacenes",
+            skill3: "Resolución Creativa de Problemas",
+            skill4: "Altamente Organizado",
+            skill5: "Gestión Efectiva del Tiempo",
+            skill6: "Aprendiz Rápido",
+            skill7: "Habilidades de Comunicación",
+            skill8: "Capacidad para Trabajar Bajo Presión",
+            skill9: "Habilidades Informáticas",
             "languages-title": "Idiomas",
             "progskills-title": "Habilidades de Programación",
             prog1: "HTML, CSS, JavaScript",
@@ -796,11 +823,14 @@
             "job1-date": "Agosto 2019 – Enero 2023",
             "job1-desc": "Coordinación de equipos, optimización de procesos de almacenamiento y stock, preparación de cargas y comunicación con transportistas. Implementación de mejoras digitales enfocadas en eficiencia.",
             "job2-title": "Operador de Carretilla Retráctil, Menken en Orlando, La Haya",
-            "job2-date": "Abril 2018 – Mayo 2019",
+            "job2-date": "Abril 2016 – Mayo 2019",
             "job2-desc": "Preparación de pedidos, control de stock y organización de almacén. Uso de sistemas digitales para el registro y la optimización logística.",
             "job3-title": "Operador de Carretilla, Logifruit, Almeirim",
             "job3-date": "Noviembre 2023 – Febrero 2025",
             "job3-desc": "Organización del entorno de trabajo, atención al cliente y resolución eficiente de problemas. Aplicación de automatización y scripts para aumentar la productividad.",
+            "job4-title": "Afiliado de Marketing / Promotor Digital, Goldspin, LeBull, Vincspin",
+            "job4-date": "Marzo 2023 – Presente",
+            "job4-desc": "Afiliado de marcas de casino, promoviendo campañas y captando nuevos clientes a través de Twitch.tv/osecaadegas95 y mi red de contactos. Enfoque en engagement, crecimiento de tráfico cualificado y fortalecimiento de la relación con el público.",
             "education-title": "Educación",
             "education-title2": "Educación",
             "education-desc": "VMBO 3, Jonathan de Wit, La Haya",
@@ -819,18 +849,18 @@
             subtitle: "HEFTRUCKCHAUFFEUR | WEB DEVELOPER",
             "details-title": "Details",
             location: "Alpiarça, Portugal",
-            phone: "+351 932367414",
+            phone: "+351 936626909",
             email: "osecaadegas95@gmail.com",
             "skills-title": "Vaardigheden",
             skill1: "Leiderschap en Teamwerk",
-            skill2: "Creatief Probleemoplossen",
-            skill3: "Zeer Georganiseerd",
-            skill4: "Effectief Tijdbeheer",
-            skill5: "Snelle Leerling",
-            skill6: "Communicatievaardigheden",
-            skill7: "Kunnen Werken Onder Druk",
-            skill8: "Computervaardigheden",
-            skill9: "Programmeren (zie hieronder)",
+            skill2: "Magazijnveiligheidsprocedures",
+            skill3: "Creatief Probleemoplossen",
+            skill4: "Zeer Georganiseerd",
+            skill5: "Effectief Tijdbeheer",
+            skill6: "Snelle Leerling",
+            skill7: "Communicatievaardigheden",
+            skill8: "Kunnen Werken Onder Druk",
+            skill9: "Computervaardigheden",
             "languages-title": "Talen",
             "progskills-title": "Programmeervaardigheden",
             prog1: "HTML, CSS, JavaScript",
@@ -845,11 +875,14 @@
             "job1-date": "Augustus 2019 – Januari 2023",
             "job1-desc": "Teamcoördinatie, optimalisatie van opslag- en voorraadprocessen, laadvoorbereiding en communicatie met vervoerders. Implementatie van digitale verbeteringen gericht op efficiëntie.",
             "job2-title": "Reachtruckchauffeur, Menken en Orlando, Den Haag",
-            "job2-date": "April 2018 – Mei 2019",
+            "job2-date": "April 2016 – Mei 2019",
             "job2-desc": "Orderpicken, voorraadbeheer en magazijnorganisatie. Gebruik van digitale systemen voor registratie en logistieke optimalisatie.",
             "job3-title": "Heftruckchauffeur, Logifruit, Almeirim",
             "job3-date": "November 2023 – Februari 2025",
             "job3-desc": "Werkplekorganisatie, klantenservice en efficiënte probleemoplossing. Toepassing van automatisering en scripts om de productiviteit te verhogen.",
+            "job4-title": "Marketing Affiliate / Digitale Promotor, Goldspin, LeBull, Vincspin",
+            "job4-date": "Maart 2023 – Heden",
+            "job4-desc": "Affiliate voor casinomerken; campagnes promoten en nieuwe klanten werven via Twitch.tv/osecaadegas95 en eigen netwerk. Focus op engagement, groei van gekwalificeerd verkeer en het versterken van de relatie met het publiek.",
             "education-title": "Opleiding",
             "education-title2": "Opleiding",
             "education-desc": "VMBO 3, Jonathan de Wit, Den Haag",
@@ -868,18 +901,18 @@
             subtitle: "OPERATOR WÓZKA WIDŁOWEGO | WEB DEVELOPER",
             "details-title": "Szczegóły",
             location: "Alpiarça, Portugalia",
-            phone: "+351 932367414",
+            phone: "+351 936626909",
             email: "osecaadegas95@gmail.com",
             "skills-title": "Umiejętności",
             skill1: "Przywództwo i Praca Zespołowa",
-            skill2: "Kreatywne Rozwiązywanie Problemów",
-            skill3: "Wysoka Organizacja",
-            skill4: "Efektywne Zarządzanie Czasem",
-            skill5: "Szybka Nauka",
-            skill6: "Umiejętności Komunikacyjne",
-            skill7: "Umiejętność Pracy Pod Presją",
-            skill8: "Umiejętności Komputerowe",
-            skill9: "Programowanie (patrz poniżej)",
+            skill2: "Procedury Bezpieczeństwa w Magazynie",
+            skill3: "Kreatywne Rozwiązywanie Problemów",
+            skill4: "Wysoka Organizacja",
+            skill5: "Efektywne Zarządzanie Czasem",
+            skill6: "Szybka Nauka",
+            skill7: "Umiejętności Komunikacyjne",
+            skill8: "Umiejętność Pracy Pod Presją",
+            skill9: "Umiejętności Komputerowe",
             "languages-title": "Języki",
             "progskills-title": "Umiejętności Programistyczne",
             prog1: "HTML, CSS, JavaScript",
@@ -894,11 +927,14 @@
             "job1-date": "Sierpień 2019 – Styczeń 2023",
             "job1-desc": "Koordynacja zespołu, optymalizacja procesów magazynowania i zapasów, przygotowanie ładunków oraz komunikacja z przewoźnikami. Wdrażanie cyfrowych usprawnień ukierunkowanych na efektywność.",
             "job2-title": "Operator Wózka Bocznogo, Menken en Orlando, Haga",
-            "job2-date": "Kwiecień 2018 – Maj 2019",
+            "job2-date": "Kwiecień 2016 – Maj 2019",
             "job2-desc": "Kompletowanie zamówień, kontrola zapasów i organizacja magazynu. Wykorzystanie systemów cyfrowych do rejestracji i optymalizacji logistyki.",
             "job3-title": "Operator Wózka Widłowego, Logifruit, Almeirim",
             "job3-date": "Listopad 2023 – Luty 2025",
             "job3-desc": "Organizacja miejsca pracy, obsługa klienta i efektywne rozwiązywanie problemów. Zastosowanie automatyzacji i skryptów w celu zwiększenia wydajności.",
+            "job4-title": "Afiliant Marketingowy / Promotor Cyfrowy, Goldspin, LeBull, Vincspin",
+            "job4-date": "Marzec 2023 – Obecnie",
+            "job4-desc": "Afiliant marek kasynowych; promocja kampanii i pozyskiwanie nowych klientów przez Twitch.tv/osecaadegas95 oraz sieć kontaktów. Skupienie na zaangażowaniu, wzroście kwalifikowanego ruchu i budowaniu relacji z odbiorcami.",
             "education-title": "Wykształcenie",
             "education-title2": "Wykształcenie",
             "education-desc": "VMBO 3, Jonathan de Wit, Haga",
